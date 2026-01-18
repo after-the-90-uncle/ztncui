@@ -4,7 +4,12 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "devstart": "nodemon ./bin/www"
+    "devstart": "nodemon ./bin/www",
+    "pm2": "pm2 start --time --name=\"ztncui\" npm -- run start",
+    "restart": "pm2 restart ztncui --time",
+    "logs": "pm2 logs ztncui",
+    "kill": "pm2 delete ztncui",
+    "status": "pm2 status ztncui"
   },
   "dependencies": {
     "argon2": "^0.19.3",
