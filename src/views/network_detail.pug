@@ -54,13 +54,13 @@ block net_content
   - const nwurl = '/controller/network/' + network.nwid;
 
   a.btn.btn-primary(style="margin: 5px" href=(nwurl + '/private') role='button')
-    = network.private ? "Private" : "Public"
-  a.btn.btn-primary(style="margin: 5px" href=(nwurl + '/easy') role='button') Easy setup
-  a.btn.btn-primary(style="margin: 5px" href=(nwurl + '/routes') role='button') Routes
-  a.btn.btn-primary(style="margin: 5px" href=(nwurl + '/ipAssignmentPools') role='button') Assignment Pools
-  a.btn.btn-primary(style="margin: 5px" href=(nwurl + '/v4AssignMode') role='button') IPv4 Assign Mode
-  a.btn.btn-primary(style="margin: 5px" href=(nwurl + '/v6AssignMode') role='button') IPv6 Assign Mode
-  a.btn.btn-primary(style="margin: 5px" href=(nwurl + '/dns') role='button') DNS
+    = network.private ? t('network_private') : t('network_public')
+  a.btn.btn-primary(style="margin: 5px" href=(nwurl + '/easy') role='button') #{t('easy_setup')}
+  a.btn.btn-primary(style="margin: 5px" href=(nwurl + '/routes') role='button') #{t('routes_title')}
+  a.btn.btn-primary(style="margin: 5px" href=(nwurl + '/ipAssignmentPools') role='button') #{t('ip_pools_title')}
+  a.btn.btn-primary(style="margin: 5px" href=(nwurl + '/v4AssignMode') role='button') #{t('v4_assign_mode')}
+  a.btn.btn-primary(style="margin: 5px" href=(nwurl + '/v6AssignMode') role='button') #{t('v6_assign_mode')}
+  a.btn.btn-primary(style="margin: 5px" href=(nwurl + '/dns') role='button') #{t('dns_title')}
 
   if (members !== undefined)
     script.
@@ -76,26 +76,26 @@ block net_content
           $.post(url, {'id': this.name, 'name': this.value});
         });
       });
-    h3#members Members (#{members.length})
+    h3#members #{t('network_members_count', {count: members.length})}
     form(method='POST' action='')
       table.table.table-responsive.table-striped.table-hover
         tr
           td(width='3%')
             = ''
           td(width='20%')
-            | Member name
+            | #{t('network_member_name')}
           td(width='10%')
-            | Member ID
+            | #{t('network_member_id')}
           td(width='10%')
-            | Authorized
+            | #{t('network_authorized')}
           td(width='10%')
-            | Active bridge
+            | #{t('network_active_bridge')}
           td(width='17%')
-            | IP assignment
+            | #{t('network_ip_assignment')}
           td(width='17%')
-            | Peer status
+            | #{t('network_peer_status')}
           td(width='13%')
-            | Peer address / latency
+            | #{t('network_peer_address_latency')}
         each member in members
           - const peer = member.peer;
           tr
@@ -119,19 +119,19 @@ block net_content
                   = ' '
               else
                 a(href=nwurl + '/member/' + member.id + '/ipAssignments')
-                  | IP assignment
+                  | #{t('network_ip_assignment')}
             td
               if (peer && peer.latency != -1 && peer.versionMajor != -1)
                 if (peer.latency != -1)
                   span(style='color: green;')
-                    | ONLINE (v#{peer.version})
+                    | #{t('network_online')} (v#{peer.version})
                 else
                   span(style='color: orange;')
-                    | RELAY (v#{peer.version})
+                    | #{t('network_relay')} (v#{peer.version})
               else if (member.id == zt_address)
-                span(style='color: green;') CONTROLLER
+                span(style='color: green;') #{t('network_controller')}
               else
-                span(style='color: red;') OFFLINE
+                span(style='color: red;') #{t('network_offline')}
             td
               if (peer)
                 each path in peer.paths
@@ -141,14 +141,14 @@ block net_content
                   = ' '
                 if (peer.latency != -1)
                   br
-                  | (#{peer.latency} ms)
+                  | (#{peer.latency} #{t('network_latency_ms')})
         else
           .alert.alert-info
-            strong There are no members on this network - invite users to join #{network.nwid}
+            strong #{t('network_no_members', {nwid: network.nwid})}
 
-  a.btn.btn-default(href='' name='refresh' role='button') Refresh
+  a.btn.btn-default(href='' name='refresh' role='button') #{t('btn_refresh')}
 
-  h3#detail Detail for network
+  h3#detail #{t('network_detail')}
   each value, key in network
     .row(style='margin: 5px 0;')
       .col-sm-2
@@ -156,4 +156,4 @@ block net_content
       .col-sm-10
         +json_value(value)
 
-  a.btn.btn-default(href='/controller/networks' name='networks' role='button' style='margin-top: 10px;') Networks
+  a.btn.btn-default(href='/controller/networks' name='networks' role='button' style='margin-top: 10px;') #{t('network_networks')}

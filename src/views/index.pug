@@ -6,17 +6,100 @@
 extends controller_layout
 
 block content
-  h1!= title
-
-  h2
-    a(href='https://zerotier.com' target='_blank') ZeroTier 
-    | network controller UI by 
-    a(href='https://key-networks.com' target='_blank') Key Networks
-
   if error
-     b #{error}
+    .alert.alert-danger
+      .d-flex.align-items-center
+        i.glyphicon.glyphicon-exclamation-sign.mr-3
+        strong= error
   else
-    h4 This network controller has a ZeroTier address of <b>#{zt_status.address}</b>
-    h4 ZeroTier version <b>#{zt_status.version}</b>
-    h4
-      a(href='/controller/networks') List all networks on this network controller
+    .text-center.mb-5
+      h1 Network Controller
+      p.lead.text-muted(style='font-style: italic;') A minimalist approach to network management
+
+    .row
+      .col-lg-6
+        .minimal-card.mb-4
+          .card-header
+            | Controller Information
+          .card-body
+            .info-row.d-flex.justify-content-between.align-items-center.mb-3
+              .info-label
+                strong ZeroTier Address
+              .info-value
+                code= zt_status.address
+            .info-row.d-flex.justify-content-between.align-items-center.mb-3
+              .info-label
+                strong Version
+              .info-value
+                code= zt_status.version
+            .info-row.d-flex.justify-content-between.align-items-center.mb-3
+              .info-label
+                strong Status
+              .info-value
+                span.status-online Active
+            .info-row.d-flex.justify-content-between.align-items-center.mb-0
+              .info-label
+                strong Networks
+              .info-value
+                code= networks ? networks.length : 0
+
+      .col-lg-6
+        .minimal-card.mb-4
+          .card-header
+            | Quick Actions
+          .card-body
+            .d-grid.gap-3
+              a.btn.btn-primary(href='/controller/networks')
+                i.glyphicon.glyphicon-list.mr-2
+                | View Networks
+              a.btn.btn-default(href='/controller/network/create')
+                i.glyphicon.glyphicon-plus.mr-2
+                | Create Network
+              a.btn.btn-default(href='/users')
+                i.glyphicon.glyphicon-user.mr-2
+                | Manage Users
+              a.btn.btn-default(href='/logout')
+                i.glyphicon.glyphicon-log-out.mr-2
+                | Sign Out
+
+    .row.mt-5
+      .col-12
+        .minimal-card
+          .card-header
+            | System Overview
+          .card-body
+            .row
+              .col-md-3.text-center.mb-4
+                .display-4.text-success.mb-2
+                  i.glyphicon.glyphicon-ok-circle
+                h5.font-weight-light Controller
+                p.text-muted.small Online and operational
+              .col-md-3.text-center.mb-4
+                .display-4.text-primary.mb-2
+                  i.glyphicon.glyphicon-globe
+                h5.font-weight-light Networks
+                p.text-muted.small= networks ? networks.length : 0 + ' configured'
+              .col-md-3.text-center.mb-4
+                .display-4.text-info.mb-2
+                  i.glyphicon.glyphicon-user
+                h5.font-weight-light Users
+                p.text-muted.small System access managed
+              .col-md-3.text-center.mb-4
+                .display-4.text-warning.mb-2
+                  i.glyphicon.glyphicon-cog
+                h5.font-weight-light Settings
+                p.text-muted.small Configuration complete
+
+    .row.mt-5
+      .col-12
+        .minimal-card
+          .card-header
+            | Recent Activity
+          .card-body
+            .empty-state
+              .empty-icon
+                i.glyphicon.glyphicon-leaf
+              h3.font-weight-light Clean Start
+              p.lead.text-muted Your network controller is running smoothly. No recent activity to display.
+              a.btn.btn-primary(href='/controller/networks')
+                | Get Started

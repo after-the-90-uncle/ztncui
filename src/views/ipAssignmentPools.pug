@@ -11,8 +11,8 @@ block net_content
       table.table.table-responsive.table-striped.table-hover
         tr
           th
-          th IP range start
-          th IP range end
+          th #{t('ip_pools_ip_range_start')}
+          th #{t('ip_pools_ip_range_end')}
           each ipAssignmentPool in network.ipAssignmentPools
             tr
               td(width='3%')
@@ -23,26 +23,26 @@ block net_content
 
   .row
     .col-sm-12
-      h3 Add new IP Assignment Pool:
+      h3 #{t('ip_pools_add_new')}
 
   form(method='POST' action='/controller/network/' + network.nwid + '/ipAssignmentPools')
     .form-group.row
       .col-sm-2
-        label(for='ipRangeStart') IP range start:
+        label(for='ipRangeStart') #{t('ip_pools_start_label')}
       .col-sm-12
-        input#ipRangeStart.form-control(type='text' name='ipRangeStart' placeholder='IP range start' value=(undefined===ipAssignmentPool? '' : ipAssignmentPool.ipRangeStart))
+        input#ipRangeStart.form-control(type='text' name='ipRangeStart' placeholder=t('ip_pools_start_placeholder') value=(undefined===ipAssignmentPool? '' : ipAssignmentPool.ipRangeStart))
 
     .form-group.row
       .col-sm-2
-        label(for='ipRangeEnd') IP range end:
+        label(for='ipRangeEnd') #{t('ip_pools_end_label')}
       .col-sm-12
-        input#ipRangeEnd.form-control(type='text' name='ipRangeEnd' placeholder='IP range end' value=(undefined===ipAssignmentPool? '' : ipAssignmentPool.ipRangeEnd))
+        input#ipRangeEnd.form-control(type='text' name='ipRangeEnd' placeholder=t('ip_pools_end_placeholder') value=(undefined===ipAssignmentPool? '' : ipAssignmentPool.ipRangeEnd))
 
     .form-group.row
       .col-sm-12
-        button.btn.btn-primary(type='submit') Submit
+        button.btn.btn-primary(type='submit') #{t('btn_submit')}
         = ' '
-        a.btn.btn-default(href='/controller/network/' + network.nwid name='cancel' role='button') Cancel
+        a.btn.btn-default(href='/controller/network/' + network.nwid name='cancel' role='button') #{t('btn_cancel')}
 
   if errors
     .row

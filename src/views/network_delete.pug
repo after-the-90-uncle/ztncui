@@ -8,15 +8,15 @@ extends network_layout
 block net_content
   if network.deleted
     .alert.alert-success
-      strong #{network.name} (#{network.nwid}) was deleted
+      strong #{t('network_deleted', {name: network.name, nwid: network.nwid})}
 
   else
     .alert.alert-danger
-      strong Warning! Deleting a network cannot be undone
+      strong #{t('network_delete_warning')}
     form(method='POST' action='')
-      button.btn.btn-danger(type='submit', name='delete') Delete #{network.name} (#{network.nwid})
+      button.btn.btn-danger(type='submit', name='delete') #{t('network_delete_button', {name: network.name, nwid: network.nwid})}
       = ' '
-      a.btn.btn-default(href='/controller/networks', name='cancel', role='button') Cancel
+      a.btn.btn-default(href='/controller/networks', name='cancel', role='button') #{t('btn_cancel')}
 
   if errors
     ul

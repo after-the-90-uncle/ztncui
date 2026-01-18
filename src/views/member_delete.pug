@@ -8,21 +8,21 @@ extends network_layout
 block net_content
   if member.deleted
     .alert.alert-success
-      strong #{member.name} (#{member.id}) was deleted
-    a.btn.btn-default(href=('/controller/network/' + network.nwid + '#members') name='networks' role='button') Members
+      strong #{t('member_deleted', {name: member.name, id: member.id})}
+    a.btn.btn-default(href=('/controller/network/' + network.nwid + '#members') name='networks' role='button') #{t('member_members')}
 
   else
     .alert.alert-info
       strong
         ul
-          li To undo a member deletion, just get the member to join the network again.
-          li After deleting a member, you may see them appear in the list of members again.  This is a ZeroTier issue.  Just get the user to leave the network.
+          li #{t('member_delete_info')}
+          li #{t('member_delete_info2')}
 
     form(method='POST' action='')
-      button.btn.btn-primary(type='submit', name='delete') Delete #{member.name} (#{member.id})
+      button.btn.btn-primary(type='submit', name='delete') #{t('member_delete_button', {name: member.name, id: member.id})}
       = ' '
       a.btn.btn-default(href='/controller/network/' + network.nwid + '#members',
-                                          name='cancel', role='button') Cancel
+                                          name='cancel', role='button') #{t('btn_cancel')}
 
   if errors
     ul

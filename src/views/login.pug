@@ -6,40 +6,45 @@
 extends login_layout
 
 block login_content
+  .login-minimal
+    .login-header
+      .login-title #{typeof t !== 'undefined' ? t('login_welcome_back') : 'Welcome Back'}
+      .login-subtitle #{t('login_sign_in_to_manage')}
 
-  if error
-     b #{error}
-  else
-    .row
-      .col-sm-12
-        h1= title
+    if error
+      .alert.alert-danger.mb-4
+        .d-flex.align-items-center
+          i.glyphicon.glyphicon-exclamation-sign.mr-3
+          strong= error
 
-        if message
-          .alert.alert-info
-            strong= message
+    if message
+      .alert.alert-info.mb-4
+        .d-flex.align-items-center
+          i.glyphicon.glyphicon-info-sign.mr-3
+          strong= message
 
-    form.form-horizontal(method='POST' action='')
-      .form-group.row
-        .col-sm-2
-          label.control-label(for='username') Username:
-        .col-sm-10
-          .input-group
-            span.input-group-addon
-              i.glyphicon.glyphicon-user
-            input#username.form-control(type='text' name='username' placeholder='Enter your username')
+    .login-body
+      form(method='POST' action='')
+        .form-group
+          label.form-label(for='username') #{t('login_username')}
+          input#username.form-control(type='text' name='username' placeholder=t('login_enter_username') required)
 
-      .form-group.row
-        .col-sm-2
-          label.control-label(for='password') Password:
-        .col-sm-10
-          .input-group
-            span.input-group-addon
-              i.glyphicon.glyphicon-lock
-            input#password.form-control(type='password' name='password' placeholder='Enter your password')
+        .form-group
+          label.form-label(for='password') #{t('login_password')}
+          input#password.form-control(type='password' name='password' placeholder=t('login_enter_password') required)
 
-      .form-group.row
-        .col-sm-2
-        .col-sm-10
-          button.btn.btn-primary(type='submit') Login
-          = ' '
-          a.btn.btn-default(href='/' name='cancel' role='button') Cancel
+        .form-group.d-flex.justify-content-between.align-items-center
+          .form-check
+            input#remember.form-check-input(type='checkbox' name='remember')
+            label.form-check-label(for='remember') #{t('login_remember_me')}
+          a.text-decoration-none(href='#') #{t('login_forgot_password')}
+
+        .login-actions
+          button.btn.btn-primary.btn-lg(type='submit')
+            | #{t('btn_sign_in')}
+          a.btn.btn-default.btn-lg(href='/' name='cancel' role='button')
+            | #{t('btn_cancel')}
+
+    .login-footer
+      a(href='/') #{t('login_back_to_home')}
+      a(href='#') #{t('login_need_help')}

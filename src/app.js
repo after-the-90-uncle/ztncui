@@ -19,6 +19,8 @@ const helmet = require('helmet');
 const index = require('./routes/index');
 const users = require('./routes/users');
 const zt_controller = require('./routes/zt_controller');
+const i18nRoutes = require('./routes/i18n');
+const i18n = require('./lib/i18n');
 
 const app = express();
 
@@ -46,9 +48,33 @@ app.use('/bscss', express.static(path.join(__dirname, 'node_modules/bootstrap/di
 app.use('/jqjs', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 app.use('/bsjs', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
 
+// i18n middleware
+app.use(function(req, res, next) {
+  res.locals.i18n = i18n;
+  res.locals.currentLocale = i18n.getCurrentLocale(req);
+  res.locals.supportedLocales = i18n.getSupportedLocales();
+  res.locals.t = function(key, params) {
+    return i18n.t(req, key, params);
+  };
+
+  // Override render to pass i18n locals
+  const originalRender = res.render;
+  res.render = function(view, locals, callback) {
+    locals = locals || {};
+    locals.i18n = res.locals.i18n;
+    locals.currentLocale = res.locals.currentLocale;
+    locals.supportedLocales = res.locals.supportedLocales;
+    locals.t = res.locals.t;
+    return originalRender.call(this, view, locals, callback);
+  };
+
+  next();
+});
+
 app.use('/', index);
 app.use('/users', users);
 app.use('/controller', zt_controller);
+app.use('/i18n', i18nRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

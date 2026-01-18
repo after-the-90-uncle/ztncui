@@ -18,7 +18,7 @@ block net_content
       tr
         td(width='3%')
           input#v4AssignModeCheckBox.checkbox(type='checkbox' checked=(network.v4AssignMode.zt? true : false))
-        td Auto-assign from IP Assignment Pool
+        td #{t('v4_auto_assign')}
 
   if errors
     ul
