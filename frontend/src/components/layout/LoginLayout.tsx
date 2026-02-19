@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
 import { WifiOutlined } from '@ant-design/icons';
+import ParticleBackground from '../common/ParticleBackground';
 
 const { Content } = Layout;
 
@@ -10,24 +11,30 @@ interface LoginLayoutProps {
 
 const LoginLayout: React.FC<LoginLayoutProps> = ({ children }) => {
   return (
-    <Layout style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-      <Content style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div className="login-container">
-          <div className="login-header">
-            <WifiOutlined style={{ fontSize: 48, color: '#1890ff', marginBottom: 16 }} />
-            <h1 style={{ color: '#fff', margin: 0, fontSize: 32, fontWeight: 600 }}>
-              ztncui
-            </h1>
-            <p style={{ color: '#fff', opacity: 0.8, margin: '8px 0 0', fontSize: 16 }}>
-              ZeroTier 网络控制器
-            </p>
-          </div>
-          <div className="login-content">
-            {children}
-          </div>
+    <div style={{ minHeight: '100vh', background: '#0a0a0f', position: 'relative', overflow: 'hidden' }}>
+      <ParticleBackground />
+      
+      <div style={{ 
+        display: 'flex', 
+        flexDirection: 'column',
+        alignItems: 'center', 
+        justifyContent: 'center',
+        minHeight: '100vh',
+        position: 'relative',
+        zIndex: 1,
+        pointerEvents: 'none'
+      }}>
+        <div style={{ textAlign: 'center', marginBottom: 32, pointerEvents: 'auto' }}>
+          <WifiOutlined style={{ fontSize: 48, color: '#00c8ff', marginBottom: 16 }} />
+          <h1 style={{ margin: 0, color: '#fff', fontSize: 32, fontWeight: 600 }}>ztncui</h1>
+          <p style={{ margin: '8px 0 0', color: 'rgba(255,255,255,0.7)', fontSize: 16 }}>ZeroTier 网络控制器</p>
         </div>
-      </Content>
-    </Layout>
+        
+        <div style={{ pointerEvents: 'auto' }}>
+          {children}
+        </div>
+      </div>
+    </div>
   );
 };
 
