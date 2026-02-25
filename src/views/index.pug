@@ -14,9 +14,10 @@ block content
     a(href='https://key-networks.com' target='_blank') Key Networks
 
   if error
-     b #{error}
+     b(style='padding: 0 32px; display: block;') #{error}
   else
-    h4 This network controller has a ZeroTier address of <b>#{zt_status.address}</b>
-    h4 ZeroTier version <b>#{zt_status.version}</b>
-    h4
-      a(href='/controller/networks') List all networks on this network controller
+    h4(style='padding: 0 32px;') This network controller has a ZeroTier address of <b>#{zt_status.address}</b>
+    h4(style='padding: 0 32px;') ZeroTier version <b>#{zt_status.version}</b>
+    h4(style='padding: 0 32px;')
+      a(href='/controller/networks', style='color: #2563eb; text-decoration: none;')
+        | List all networks on this network controller

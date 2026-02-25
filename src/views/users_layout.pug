@@ -32,12 +32,11 @@ block body_content
             span(style='color: rgba(0, 0, 0, 0.65);')
               | Welcome back!
     
-    .ant-layout-content(style='background: #f0f2f5; min-height: calc(100vh - 64px);')
-      .ant-card(style='margin: 24px; border-radius: 8px;')
-        if error
-          .ant-alert.ant-alert-error(style='margin-bottom: 24px;')
-            div(style='padding: 12px;')
-              strong #{error}
-        else
-          h1= title
-          block users_content
+    .ant-layout-content(style='background: #f3f4f6; min-height: calc(100vh - 64px);')
+      if error
+        .ant-alert.ant-alert-error(style='margin: 24px 32px; border: none; border-radius: 6px;')
+          div(style='padding: 12px;')
+            strong #{error}
+      else
+        h1(style='padding: 32px 32px 0 32px; margin: 0;')= title
+        block users_content

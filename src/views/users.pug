@@ -21,10 +21,10 @@ block users_content
                 a.ant-btn.ant-btn-text.ant-btn-sm(href='/users/' + user.name + '/delete', style='color: #ff4d4f;')
                   span 🗑️
               td.ant-table-cell
-                strong #{user.name}
+                strong(style='color: #2563eb;') #{user.name}
               td.ant-table-cell
                 a.ant-btn.ant-btn-primary.ant-btn-sm(href='/users/' + user.name + '/password') Set Password
   else
-    .ant-alert.ant-alert-info(style='margin-bottom: 24px;')
+    .ant-alert.ant-alert-info(style='margin: 24px 32px; border: none; border-radius: 6px;')
       div(style='padding: 12px;')
         strong There are no users on this system
