@@ -14,13 +14,14 @@ block net_content
     });
 
   form(method='POST' action='')
-    table.table.table-responsive.table-striped.table-hover
-      tr
-        td(width='3%')
-          input#v4AssignModeCheckBox.checkbox(type='checkbox' checked=(network.v4AssignMode.zt? true : false))
-        td Auto-assign from IP Assignment Pool
+    .ant-form-item(style='margin-bottom: 24px;')
+      .ant-checkbox(style='display: flex; align-items: center;')
+        input#v4AssignModeCheckBox.checkbox(type='checkbox' checked=(network.v4AssignMode.zt? true : false) style='width: 16px; height: 16px; margin-right: 12px; cursor: pointer;')
+        label(for='v4AssignModeCheckBox' style='cursor: pointer; margin: 0;')
+          strong Auto-assign from IP Assignment Pool
 
   if errors
-    ul
-      for err in errors
-        li!= err.msg
+    .ant-alert.ant-alert-error(style='margin-top: 24px;')
+      ul(style='margin: 0; padding: 0 0 0 20px;')
+        for err in errors
+          li(style='margin-bottom: 8px;')!= err.msg

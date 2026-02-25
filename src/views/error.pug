@@ -1,6 +1,10 @@
 extends controller_layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  .ant-alert.ant-alert-error(style='margin-bottom: 24px;')
+    div(style='padding: 12px;')
+      h1(style='margin: 0 0 12px 0; color: #ff4d4f;')= message
+      h2(style='margin: 0 0 12px 0;')= error.status
+  
+  .ant-card(style='background: #fafafa; border: 1px solid #f0f0f0;')
+    pre(style='margin: 0; overflow-x: auto; background: #fff; padding: 12px; border-radius: 4px;')= error.stack

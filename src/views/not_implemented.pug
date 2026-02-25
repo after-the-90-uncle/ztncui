@@ -7,14 +7,21 @@ extends network_layout
 
 block net_content
   - if (member !== undefined)
-    h4 for member
-      a(href='../' + member.address)  #{member.address}
-  h4 Editing of
-    b  #{title}
-    |  has not been implemented.
+    .ant-descriptions(style='background: #fff; border: 1px solid #f0f0f0; border-radius: 4px; padding: 16px; margin-bottom: 24px;')
+      .ant-descriptions-item
+        .ant-descriptions-item-label(style='width: 30%; color: rgba(0, 0, 0, 0.65); font-weight: 600;') Member
+        .ant-descriptions-item-content(style='width: 70%;')
+          a(href='../' + member.address style='color: #1890ff; text-decoration: none;')
+            code= member.address
 
-  h4
-    | Note that you may be able to edit some properties on the 
-    strong
-      a(href='/controller/network/' + network.nwid + '#members') Members
-    |  page.
+  .ant-alert.ant-alert-info(style='margin-bottom: 24px;')
+    div(style='padding: 12px;')
+      strong 
+        | Editing of 
+        strong #{title}
+        |  has not been implemented yet.
+      p(style='margin: 12px 0 0 0;')
+        | Note that you may be able to edit some properties on the 
+        strong
+          a(href='/controller/network/' + network.nwid + '#members' style='color: #1890ff; text-decoration: none;') Members
+        |  page.

@@ -3,15 +3,72 @@
   Copyright (C) 2017-2021  Key Networks (https://key-networks.com)
   Licensed under GPLv3 - see LICENSE for details.
 
-extends head_layout
-
-block nav_login
-  a(href='/login')
-    span.glyphicon.glyphicon-log-in
-    |  Login
-
-block body_content
-  .container(style='margin-top:50px')
-    .row
-      .col-sm-12
-        block login_content
+doctype html
+html(lang='en')
+  head
+    title= title
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/antd/antd.min.css')
+    link(rel='stylesheet', href='/stylesheets/antd-custom.css')
+    style.
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      }
+      .login-container {
+        width: 100%;
+        max-width: 400px;
+        padding: 20px;
+      }
+      .login-card {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+      }
+      .login-header {
+        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+        padding: 40px 20px;
+        text-align: center;
+        color: #ffffff;
+      }
+      .login-header h1 {
+        margin: 0;
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .login-header p {
+        margin: 0;
+        font-size: 14px;
+        opacity: 0.9;
+      }
+      .login-body {
+        padding: 40px 32px;
+      }
+      @media (max-width: 480px) {
+        .login-container {
+          padding: 10px;
+        }
+        .login-body {
+          padding: 30px 20px;
+        }
+        .login-header {
+          padding: 30px 20px;
+        }
+      }
+  body
+    .login-container
+      .login-card
+        .login-header
+          h1 ZTNCUI
+          p ZeroTier Network Controller
+        .login-body
+          block login_content

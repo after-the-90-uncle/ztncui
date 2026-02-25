@@ -6,15 +6,19 @@
 extends network_layout
 
 block net_content
-  h4
-    | for member #{member.name} (#{member.address}) in network
+  h3(style='margin-bottom: 16px;')
+    | Member details for 
+    strong #{member.name}
+    |  (#{member.address})
 
-  each value, key in member
-    .row
-      .col-sm-2
-        a(href=('/controller/network/' + member.nwid + '/member/' + member.address + '/' + key)) #{key}:
-      .col-sm-10
-        +json_value(value)
+  .ant-descriptions(style='margin-bottom: 24px; background: #fff; border: 1px solid #f0f0f0; border-radius: 4px; padding: 16px;')
+    each value, key in member
+      .ant-descriptions-item(style='margin-bottom: 12px;')
+        .ant-descriptions-item-label(style='width: 30%; color: rgba(0, 0, 0, 0.65); font-weight: 600;')
+          a(href=('/controller/network/' + member.nwid + '/member/' + member.address + '/' + key) style='color: #1890ff; text-decoration: none;')
+            = key
+        .ant-descriptions-item-content(style='width: 70%;')
+          +json_value(value)
 
-  a.btn.btn-default(href=('/controller/network/' + member.nwid + "#members") name='networks' role='button' style='margin-top: 10px;')
-    | Members
+  a.ant-btn.ant-btn-default(href=('/controller/network/' + member.nwid + '#members') name='networks' role='button' style='margin-top: 16px;')
+    | ← Back to Members

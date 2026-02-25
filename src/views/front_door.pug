@@ -3,11 +3,111 @@
   Copyright (C) 2017-2021  Key Networks (https://key-networks.com)
   Licensed under GPLv3 - see LICENSE for details.
 
-extends login_layout
-
-block login_content
-  h1!= title
-
-  h2
-    a(href='https://zerotier.com' target='_blank') ZeroTier 
-    | network controller UI
+doctype html
+html(lang='en')
+  head
+    title= title
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/antd/antd.min.css')
+    link(rel='stylesheet', href='/stylesheets/antd-custom.css')
+    style.
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      }
+      .login-container {
+        width: 100%;
+        max-width: 400px;
+        padding: 20px;
+      }
+      .login-card {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+      }
+      .login-header {
+        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+        padding: 50px 20px;
+        text-align: center;
+        color: #ffffff;
+      }
+      .login-header h1 {
+        margin: 0;
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .login-header p {
+        margin: 0;
+        font-size: 14px;
+        opacity: 0.9;
+        margin-bottom: 24px;
+      }
+      .login-body {
+        padding: 40px 32px;
+        text-align: center;
+      }
+      .login-body p {
+        color: #6b7280;
+        margin: 12px 0;
+        font-size: 14px;
+      }
+      .login-body a {
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s;
+      }
+      .login-body a:hover {
+        color: #1e40af;
+        text-decoration: underline;
+      }
+      .login-btn {
+        display: inline-block;
+        margin-top: 24px;
+        padding: 10px 32px;
+        background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
+        color: #ffffff;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+      }
+      .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+      }
+      @media (max-width: 480px) {
+        .login-container {
+          padding: 10px;
+        }
+        .login-body {
+          padding: 30px 20px;
+        }
+        .login-header {
+          padding: 40px 20px;
+        }
+      }
+  body
+    .login-container
+      .login-card
+        .login-header
+          h1!= title
+          p ZeroTier Network Controller
+        .login-body
+          p 欢迎使用 ZeroTier 网络管理系统
+          p
+            a(href='https://zerotier.com' target='_blank') ZeroTier
+            |  是一个全球化虚拟网络平台
+          a.login-btn(href='/login') 前往登录

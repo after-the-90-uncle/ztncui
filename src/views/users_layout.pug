@@ -6,17 +6,38 @@
 extends head_layout
 
 block nav_items
-  +nav_item('controller_home', 'Home', '/controller')
-  +nav_item('users', 'Users', '/users')
-  +nav_item('networks', 'Networks', '/controller/networks')
-  +nav_item('create_user', 'Create user', '/users/create')
+  .ant-menu-item(class=((navigate && navigate.active === 'controller_home') ? 'ant-menu-item-selected' : ''))
+    a(href='/controller', style='color: inherit;')
+      span 🏠
+      span(style='margin-left: 12px;') Home
+  .ant-menu-item(class=((navigate && navigate.active === 'users') ? 'ant-menu-item-selected' : ''))
+    a(href='/users', style='color: inherit;')
+      span 👥
+      span(style='margin-left: 12px;') Users
+  .ant-menu-item(class=((navigate && navigate.active === 'networks') ? 'ant-menu-item-selected' : ''))
+    a(href='/controller/networks', style='color: inherit;')
+      span 🌐
+      span(style='margin-left: 12px;') Networks
+  .ant-menu-item(class=((navigate && navigate.active === 'create_user') ? 'ant-menu-item-selected' : ''))
+    a(href='/users/create', style='color: inherit;')
+      span ➕
+      span(style='margin-left: 12px;') Create User
 
 block body_content
-  .container(style='margin-top:50px')
-    .row
-      .col-sm-12
+  .ant-layout(style='margin-left: 200px;')
+    .ant-layout-header(style='background: #fff; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); position: sticky; top: 0; z-index: 10;')
+      .ant-menu(style='float: right; border: none; background: transparent;')
+        block nav_login
+          .ant-menu-item
+            span(style='color: rgba(0, 0, 0, 0.65);')
+              | Welcome back!
+    
+    .ant-layout-content(style='background: #f0f2f5; min-height: calc(100vh - 64px);')
+      .ant-card(style='margin: 24px; border-radius: 8px;')
         if error
-           b #{error}
+          .ant-alert.ant-alert-error(style='margin-bottom: 24px;')
+            div(style='padding: 12px;')
+              strong #{error}
         else
           h1= title
           block users_content

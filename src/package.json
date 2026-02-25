@@ -8,8 +8,8 @@
   },
   "dependencies": {
     "argon2": "^0.19.3",
+    "antd": "^5.12.0",
     "body-parser": "^1.18.3",
-    "bootstrap": "^3.4.1",
     "cookie-parser": "~1.4.3",
     "debug": "~3.1.0",
     "dotenv": "^4.0.0",
@@ -19,7 +19,6 @@
     "got": "^7.1.0",
     "helmet": "^3.23.0",
     "ip-address": "^5.8.9",
-    "jquery": "~3.4.1",
     "morgan": "~1.9.1",
     "node-persist": "^2.1.0",
     "pug": "^2.0.4",

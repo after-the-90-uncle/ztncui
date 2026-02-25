@@ -7,18 +7,22 @@ extends network_layout
 
 block net_content
   if network.deleted
-    .alert.alert-success
-      strong #{network.name} (#{network.nwid}) was deleted
+    .ant-alert.ant-alert-success(style='margin-bottom: 24px;')
+      div(style='padding: 12px;')
+        strong #{network.name} (#{network.nwid}) was deleted
 
   else
-    .alert.alert-danger
-      strong Warning! Deleting a network cannot be undone
+    .ant-alert.ant-alert-error(style='margin-bottom: 24px;')
+      div(style='padding: 12px;')
+        strong ⚠️ Warning! Deleting a network cannot be undone
+
     form(method='POST' action='')
-      button.btn.btn-danger(type='submit', name='delete') Delete #{network.name} (#{network.nwid})
-      = ' '
-      a.btn.btn-default(href='/controller/networks', name='cancel', role='button') Cancel
+      .ant-form-item
+        button.ant-btn.ant-btn-danger(type='submit', name='delete', style='margin-right: 8px;') Delete #{network.name} (#{network.nwid})
+        a.ant-btn.ant-btn-default(href='/controller/networks', name='cancel', role='button') Cancel
 
   if errors
-    ul
-      for err in errors
-        li!= err.msg
+    .ant-alert.ant-alert-error(style='margin-top: 24px;')
+      ul(style='margin: 0; padding: 0 0 0 20px;')
+        for err in errors
+          li(style='margin-bottom: 8px;')!= err.msg

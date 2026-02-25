@@ -4,8 +4,8 @@
   Licensed under GPLv3 - see LICENSE for details.
 
 mixin nav_item(name, displayName, href)
-  li(class=((navigate && navigate.active === name) ? 'active' : ''))
-    a(href=href) #{displayName}
+  .ant-menu-item(class=((navigate && navigate.active === name) ? 'ant-menu-item-selected' : ''))
+    a(href=href, style='color: inherit;') #{displayName}
 
 mixin json_value(value)
   - if ((!!value ) && (value.constructor == Object || value.constructor == Array))
@@ -19,28 +19,28 @@ html(lang='en')
     title= title
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='/bscss/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    script(src='/jqjs/jquery.min.js')
-    script(src='/bsjs/bootstrap.min.js')
+    link(rel='stylesheet', href='/antd/antd.min.css')
+    link(rel='stylesheet', href='/stylesheets/antd-custom.css')
   body
-    nav.navbar.navbar-inverse.navbar-fixed-top
-      .container-fluid
-        .navbar-header
-          button.navbar-toggle(type='button' data-toggle='collapse' data-target='#BarNav')
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.navbar-brand(href='https://key-networks.com' target='_blank')
-            img(src='/images/key-logo.svg' alt='Key Networks logo' height='25px' width='25px' style='display: inline')
-            |  Key Networks
-        .collapse.navbar-collapse(id='BarNav')
-          ul.nav.navbar-nav
-            block nav_items
-          ul.nav.navbar-nav.navbar-right
-            li
-              block nav_login
-                a(href='/logout')
-                  span.glyphicon.glyphicon-log-out
-                  |  Logout
-    block body_content
+    .ant-layout(style='min-height: 100vh;')
+      .ant-layout-sider(style='position: fixed; left: 0; top: 0; bottom: 0; overflow-y: auto; box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15); z-index: 999;')
+        .ant-layout-sider-trigger(style='padding: 16px; text-align: center; color: rgba(255, 255, 255, 0.85); font-weight: bold; border-bottom: 1px solid rgba(255, 255, 255, 0.15);')
+          img(src='/images/key-logo.svg', alt='Key Networks', style='height: 28px; margin-right: 8px; vertical-align: middle;')
+          span(style='vertical-align: middle;') ZTNCUI
+        .ant-menu(style='border: none;')
+          block nav_items
+        .ant-menu-item(style='position: absolute; bottom: 16px; left: 0; right: 0;')
+          a(href='/logout', style='color: rgba(255, 255, 255, 0.85);')
+            span(style='margin-right: 8px;') ↪
+            |  Logout
+      
+      .ant-layout(style='margin-left: 200px;')
+        .ant-layout-header(style='background: #fff; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); position: sticky; top: 0; z-index: 10;')
+          .ant-menu(style='float: right; border: none; background: transparent;')
+            block nav_login
+              .ant-menu-item
+                span(style='color: rgba(0, 0, 0, 0.65);')
+                  | Welcome back!
+        
+        .ant-layout-content(style='background: #f0f2f5; min-height: calc(100vh - 64px);')
+          block body_content

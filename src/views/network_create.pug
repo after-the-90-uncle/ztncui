@@ -6,28 +6,24 @@
 extends controller_layout
 
 block content
-  .row
-    .col-sm-12
-      h1= title
+  h1= title
 
   if error
-     b #{error}
+    .ant-alert.ant-alert-error(style='margin-bottom: 24px;')
+      div(style='padding: 12px;')
+        strong #{error}
   else
-
     form(method='POST' action='')
-      .form-group.row
-        .col-sm-2
-          label(for='name') Network name:
-        .col-sm-10
-          input#name.form-control(type='text' name='name' placeholder='Enter new network name' value=(undefined===name ? '' : name.name))
+      .ant-form-item(style='margin-bottom: 24px;')
+        label.ant-form-item-label(style='display: block; margin-bottom: 8px;')
+          span(style='color: rgba(0, 0, 0, 0.85);') Network name
+        input#name.ant-input(type='text' name='name' placeholder='Enter new network name' value=(undefined===name ? '' : name.name) style='width: 100%; padding: 8px 12px; border: 1px solid #d9d9d9; border-radius: 4px;')
 
-      .form-group.row
-        .col-sm-12
-          button.btn.btn-primary(type='submit') Create Network
+      .ant-form-item
+        button.ant-btn.ant-btn-primary(type='submit' style='padding: 4px 15px; height: 32px;') Create Network
 
     if errors
-      .row
-        .col-sm-12
-          ul
-            for err in errors
-              li!= err.msg
+      .ant-alert.ant-alert-error(style='margin-top: 24px;')
+        ul(style='margin: 0; padding: 0 0 0 20px;')
+          for err in errors
+            li(style='margin-bottom: 8px;')!= err.msg

@@ -41,10 +41,7 @@ app.use(session({
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/fonts', express.static(path.join(__dirname, 'node_modules/bootstrap/fonts')));
-app.use('/bscss', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
-app.use('/jqjs', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
-app.use('/bsjs', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
+app.use('/antd', express.static(path.join(__dirname, 'node_modules/antd/dist')));
 
 app.use('/', index);
 app.use('/users', users);

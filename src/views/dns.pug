@@ -8,50 +8,43 @@ extends network_layout
 block net_content
   - const dns = network.dns || {};
   if (!dns.domain && !(dns.servers && dns.servers.length > 0))
-    .row
-      .col-sm-12
-        b No DNS configuration on this network.
+    .ant-alert.ant-alert-info(style='margin-bottom: 24px;')
+      div(style='padding: 12px;')
+        strong No DNS configuration on this network.
   else
-    .row
-      .col-sm-2
-        b Domain:
-      .col-sm-10
-        p= dns.domain
-    .row
-      .col-sm-2
-        b Servers:
-      .col-sm-10
-        .row
-          each server in dns.servers
-            .col-sm-12= server
+    .ant-descriptions(style='background: #fff; border: 1px solid #f0f0f0; border-radius: 4px; padding: 16px; margin-bottom: 24px;')
+      .ant-descriptions-item(style='margin-bottom: 12px;')
+        .ant-descriptions-item-label(style='width: 30%; color: rgba(0, 0, 0, 0.65); font-weight: 600;') Domain
+        .ant-descriptions-item-content(style='width: 70%;')
+          = dns.domain
+      if dns.servers && dns.servers.length > 0
+        .ant-descriptions-item
+          .ant-descriptions-item-label(style='width: 30%; color: rgba(0, 0, 0, 0.65); font-weight: 600;') Servers
+          .ant-descriptions-item-content(style='width: 70%;')
+            each server in dns.servers
+              div(style='margin-bottom: 4px;')= server
 
-  .row
-    .col-sm-12
-      h3 Change DNS configuration:
+  .ant-card(style='margin-bottom: 24px;')
+    h3(style='margin-top: 0; margin-bottom: 16px;') Change DNS Configuration
 
-  form(method='POST' action='')
-    .form-group.row
-      .col-sm-12
-        label(for='domain') Domain:
-      .col-sm-12
-        input#domain.form-control(type='text' name='domain' value=dns.domain)
+    form(method='POST' action='')
+      .ant-form-item(style='margin-bottom: 16px;')
+        label.ant-form-item-label(style='display: block; margin-bottom: 8px;')
+          span(style='color: rgba(0, 0, 0, 0.85);') Domain
+        input#domain.ant-input(type='text' name='domain' value=dns.domain style='width: 100%; padding: 8px 12px; border: 1px solid #d9d9d9; border-radius: 4px;')
 
-    .form-group.row
-      .col-sm-12
-        label(for='servers') Servers:
-      .col-sm-12
-        textarea#servers.form-control(type='text' name='servers' placeholder='(one IP address per line)')
+      .ant-form-item(style='margin-bottom: 24px;')
+        label.ant-form-item-label(style='display: block; margin-bottom: 8px;')
+          span(style='color: rgba(0, 0, 0, 0.85);') Servers
+        textarea#servers.ant-input(type='text' name='servers' placeholder='(one IP address per line)' style='width: 100%; padding: 8px 12px; border: 1px solid #d9d9d9; border-radius: 4px; font-family: monospace; min-height: 120px;')
           = !dns.servers ? '' : dns.servers.join('\n')
 
-    .form-group.row
-      .col-sm-12
-        button.btn.btn-primary(type='submit') Submit
-        = ' '
-        a.btn.btn-default(href=('/controller/network/' + network.nwid) name='cancel' role='button') Cancel
+      .ant-form-item
+        button.ant-btn.ant-btn-primary(type='submit' style='margin-right: 8px;') Submit
+        a.ant-btn.ant-btn-default(href=('/controller/network/' + network.nwid) name='cancel' role='button') Cancel
 
   if errors
-    .row
-      .col-sm-12
-        ul
-          for err in errors
-            li!= err.msg
+    .ant-alert.ant-alert-error(style='margin-top: 24px;')
+      ul(style='margin: 0; padding: 0 0 0 20px;')
+        for err in errors
+          li(style='margin-bottom: 8px;')!= err.msg

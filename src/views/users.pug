@@ -6,17 +6,25 @@
 extends users_layout
 
 block users_content
-  table.table.table-responsive.table-striped.table-hover
-    each user in users
-      tr
-        td(width='3%')
-          a(href='/users/' + user.name + '/delete')
-            i.glyphicon.glyphicon-trash
-        td(width='15%')
-          a(href='/users/' + user.name + '/password') #{user.name}
-        td(width='82%')
-          a(href='/users/' + user.name + '/password') set password
-
-    else
-      .alert.alert-info
+  if users && users.length > 0
+    .ant-table-wrapper
+      table.ant-table
+        thead.ant-table-thead
+          tr.ant-table-row
+            th.ant-table-cell(style='width: 5%;')
+            th.ant-table-cell(style='width: 25%;') Username
+            th.ant-table-cell(style='width: 70%;') Actions
+        tbody.ant-table-tbody
+          each user in users
+            tr.ant-table-row
+              td.ant-table-cell
+                a.ant-btn.ant-btn-text.ant-btn-sm(href='/users/' + user.name + '/delete', style='color: #ff4d4f;')
+                  span 🗑️
+              td.ant-table-cell
+                strong #{user.name}
+              td.ant-table-cell
+                a.ant-btn.ant-btn-primary.ant-btn-sm(href='/users/' + user.name + '/password') Set Password
+  else
+    .ant-alert.ant-alert-info(style='margin-bottom: 24px;')
+      div(style='padding: 12px;')
         strong There are no users on this system

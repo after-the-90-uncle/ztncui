@@ -52,37 +52,49 @@ block net_content
     }
 
   if message
-    .alert.alert-info
-      strong= message
+    .ant-alert.ant-alert-success(style='margin-bottom: 24px;')
+      div(style='padding: 12px;')
+        strong= message
 
   form(method='POST' action='')
-    .form-group
-      button.btn.btn-link.float-right(type='button' data-toggle='collapse' data-target='#help') Help
-      .collapse(id='help')
-        p Please note that this utility only supports IPv4 at this stage.
-        p Use the following button to automatically generate a random network address, otherwise fill in the network address CIDR manually and the IP assignment pool will be automatically calculated for you.  You can manually alter these calculated values.
+    .ant-form-item(style='margin-bottom: 24px;')
+      .ant-collapse
+        .ant-collapse-item(style='border: 1px solid #d9d9d9; border-radius: 4px;')
+          .ant-collapse-header(style='padding: 12px 16px; background: #fafafa; cursor: pointer; font-weight: 500;')
+            span ℹ️ Help
+          .ant-collapse-content(style='padding: 12px 16px; display: none;' id='help')
+            p(style='margin-bottom: 12px;') Please note that this utility only supports IPv4 at this stage.
+            p(style='margin-bottom: 0;') Use the following button to automatically generate a random network address, otherwise fill in the network address CIDR manually and the IP assignment pool will be automatically calculated for you. You can manually alter these calculated values.
+      script.
+        document.querySelector('.ant-collapse-header').addEventListener('click', function() {
+          const content = document.getElementById('help');
+          content.style.display = content.style.display === 'none' ? 'block' : 'none';
+        });
 
-    .form-group
-      button.btn.btn-primary(id='genIPv4' type='button' onclick='randomIPv4()') Generate network address
+    .ant-form-item(style='margin-bottom: 24px;')
+      button.ant-btn.ant-btn-primary(id='genIPv4' type='button' onclick='randomIPv4()' style='width: 100%;') 🎲 Generate Random Network Address
 
-    .form-group
-      label(for='networkCIDR') Network address in CIDR notation
-      input#networkCIDR.form-control(type='text' name='networkCIDR' onchange='CIDRtoPool(this.value)' placeholder='e.g. 10.11.12.0/24' value=(undefined===network.routes[0]? '' : network.routes[0].target))
+    .ant-form-item(style='margin-bottom: 16px;')
+      label.ant-form-item-label(style='display: block; margin-bottom: 8px;')
+        span(style='color: rgba(0, 0, 0, 0.85);') Network Address in CIDR Notation
+      input#networkCIDR.ant-input(type='text' name='networkCIDR' onchange='CIDRtoPool(this.value)' placeholder='e.g. 10.11.12.0/24' value=(undefined===network.routes[0]? '' : network.routes[0].target) style='width: 100%; padding: 8px 12px; border: 1px solid #d9d9d9; border-radius: 4px;')
 
-    .form-group
-      label(for='poolStart') Start of IP assignment pool
-      input#poolStart.form-control(type='text' name='poolStart' placeholder='e.g. 10.11.12.1' value=(undefined===network.ipAssignmentPools[0]? '' : network.ipAssignmentPools[0].ipRangeStart))
+    .ant-form-item(style='margin-bottom: 16px;')
+      label.ant-form-item-label(style='display: block; margin-bottom: 8px;')
+        span(style='color: rgba(0, 0, 0, 0.85);') Start of IP Assignment Pool
+      input#poolStart.ant-input(type='text' name='poolStart' placeholder='e.g. 10.11.12.1' value=(undefined===network.ipAssignmentPools[0]? '' : network.ipAssignmentPools[0].ipRangeStart) style='width: 100%; padding: 8px 12px; border: 1px solid #d9d9d9; border-radius: 4px;')
 
-    .form-group
-      label(for='poolEnd') End of IP assignment pool
-      input#poolEnd.form-control(type='text' name='poolEnd' placeholder='e.g. 10.11.12.254' value=(undefined===network.ipAssignmentPools[0]? '' : network.ipAssignmentPools[0].ipRangeEnd))
+    .ant-form-item(style='margin-bottom: 24px;')
+      label.ant-form-item-label(style='display: block; margin-bottom: 8px;')
+        span(style='color: rgba(0, 0, 0, 0.85);') End of IP Assignment Pool
+      input#poolEnd.ant-input(type='text' name='poolEnd' placeholder='e.g. 10.11.12.254' value=(undefined===network.ipAssignmentPools[0]? '' : network.ipAssignmentPools[0].ipRangeEnd) style='width: 100%; padding: 8px 12px; border: 1px solid #d9d9d9; border-radius: 4px;')
 
-    .form-group(style='padding-top: 10px')
-      button.btn.btn-primary(type='submit') Submit
-      = ' '
-      a.btn.btn-default(href=('/controller/network/' + network.nwid) name='cancel' role='button') Cancel
+    .ant-form-item
+      button.ant-btn.ant-btn-primary(type='submit' style='margin-right: 8px;') Submit
+      a.ant-btn.ant-btn-default(href=('/controller/network/' + network.nwid) name='cancel' role='button') Cancel
 
     if errors
-      ul
-        for err in errors
-          li!= err.msg
+      .ant-alert.ant-alert-error(style='margin-top: 24px;')
+        ul(style='margin: 0; padding: 0 0 0 20px;')
+          for err in errors
+            li(style='margin-bottom: 8px;')!= err.msg
